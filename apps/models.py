@@ -24,7 +24,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    phone_number = CharField(max_length=12, unique=True)
+    phone_number = CharField(max_length=12, unique=True, null=True)
     district = ForeignKey('apps.District', on_delete=CASCADE, related_name='users', null=True)
 
 
