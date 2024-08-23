@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps',
     'django_resized',
+    'ckeditor',
+    'mptt',
 ]
 AUTH_USER_MODEL = 'apps.User'
 MIDDLEWARE = [
@@ -93,5 +95,7 @@ STATIC_ROOT = join(BASE_DIR, 'static')
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/ckeditor/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
