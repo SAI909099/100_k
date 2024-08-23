@@ -1,6 +1,8 @@
-from django.views.generic import ListView
+from django.contrib.auth import login, authenticate
+from django.shortcuts import redirect, render
+from django.views.generic import ListView, TemplateView
 
-from apps.models import Category, Product
+from apps.models import Category, Product, User
 
 
 class HomeView(ListView):
@@ -31,3 +33,27 @@ class ProductListView(ListView):
         data = super().get_context_data(**kwargs)
         data['categories'] = Category.objects.all()
         return data
+
+
+class CustomLoginView(TemplateView):
+    template_name = 'apps/auth/login.html'
+
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        user = User.objects.filter(username=username).first()
+        if not user:
+            user = User.objects.create_user(username=username, password=request.POST['password'])
+            login(request, user)
+            return redirect('home')
+        else:
+            user = authenticate(request, username=username, password=request.POST['password'])
+            if user:
+                login(request, user)
+                return redirect('home')
+
+            else:
+                context = {
+                    "messages_error": ["Invalid password"]
+                }
+                return render(request, template_name='apps/auth/login.html', context=context)
