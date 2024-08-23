@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, ForeignKey, CASCADE, Model, DateTimeField, SlugField, ImageField, FloatField, \
@@ -42,23 +43,22 @@ class District(Model):
     def __str__(self):
         return self.name
 
-
 class BaseModel(Model):
     created_at = DateTimeField(auto_now_add=True)
-    updated_at = DateTimeField(auto_now=True)
+    updated_et = DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
 
 
-class BaseModelSlug(Model):
+class BaseSlugModel(Model):
     name = CharField(max_length=255)
     slug = SlugField(unique=True)
 
     class Meta:
-        abstract = True  # o`zi table bo1lib yaratilmasligi kerak # noqa
+        abstract = True
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):  # noqa
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.name)
         while self.__class__.objects.filter(slug=self.slug).exists():
             self.slug += '-1'
@@ -68,7 +68,7 @@ class BaseModelSlug(Model):
         return self.name
 
 
-class Category(BaseModel, BaseModelSlug):
+class Category(BaseSlugModel, BaseModel):
     image = ImageField(upload_to='images/')
 
     class Meta:
@@ -78,16 +78,28 @@ class Category(BaseModel, BaseModelSlug):
         return self.name
 
 
-class Product(BaseModel, BaseModelSlug):
+# class SiteSettings(Model):
+#     name = CharField(max_length=255)
+class Product(BaseSlugModel, BaseModel):
+    description = RichTextUploadingField()
     price = FloatField()
-    category = ForeignKey('apps.Category', on_delete=CASCADE, to_field='slug', related_name='product')
-    order_count = IntegerField(default=0)
-    description = TextField()
+    payment = FloatField()
+    quantity = IntegerField()
+    for_stream_price = FloatField(default=1000)
+    tg_id = IntegerField(null=True, blank=True)
+    category = ForeignKey('apps.Category', CASCADE, to_field='slug', related_name='products')
+
+
+
+    @property
+    def first_image(self):
+        return self.images.first()
 
     def __str__(self):
         return self.name
 
 
 class ProductImage(Model):
-    image = ResizedImageField(size=[200, 200], quality=100, upload_to='product/')
-    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='images')
+    image = ResizedImageField(size=[200, 200], quality=100, upload_to='products/')
+    product = ForeignKey('apps.Product', CASCADE, related_name='images')
+
