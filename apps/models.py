@@ -83,6 +83,7 @@ class Product(BaseModel, BaseModelSlug):
     category = ForeignKey('apps.Category', on_delete=CASCADE, to_field='slug', related_name='product')
     order_count = IntegerField(default=0)
     description = TextField()
+    owner = ForeignKey(User, on_delete=CASCADE, related_name='products')
 
     def __str__(self):
         return self.name

@@ -1,0 +1,143 @@
+{% extends 'apps/include_base/base.html' %}
+{% load static %}
+{% block body %}
+    <div class="page-wrapper">
+        <main class="page-content" style="position: relative;">
+            <div class="market">
+                <div class="container">
+                    <div class="mantine-12semsw"></div>
+                    <div class="block-info">
+                        <span>Maxsulot reklamasini olish uchun <a
+                                href="https://t.me/yuzkabot" target="_blank" rel="noreferrer"
+                                style="text-decoration: underline;">@yuzkabot</a> telegram botga ulaning.</span>
+                    </div>
+                    <h3>Hozirda sotuvda bor mahsulotlar</h3>
+                    <div class="swiper swiper-initialized swiper-horizontal product-posts swiper-backface-hidden">
+                        <div class="swiper-wrapper"></div>
+                        <div class="swiper-button-prev swiper-button-disabled swiper-button-lock"></div>
+                        <div class="swiper-button-next swiper-button-disabled swiper-button-lock"></div>
+                    </div>
+                    <div class="mantine-1qtpduh"></div>
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <button class="mantine-UnstyledButton-root mantine-Button-root icon mantine-1ke2qfb"
+                                    type="button" data-button="true">
+                                <div class="mantine-3xbgk5 mantine-Button-inner">
+                                    <span class="mantine-qo1k2 mantine-Button-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </button>
+                            <input type="text" class="form-control" autocomplete="off" maxlength="255"
+                                   name="query" value="">
+                            <button class="mantine-UnstyledButton-root mantine-Button-root submit mantine-8nr514"
+                                    type="submit" data-button="true">
+                                <div class="mantine-3xbgk5 mantine-Button-inner">
+                                    <span class="mantine-qo1k2 mantine-Button-label">Izlash</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mantine-1q1idfv"></div>
+                    <div class="categories">
+                        <div class="categories-item active">Yangi 🕒</div>
+                        <div class="categories-item ">TOP ⭐</div>
+                        <div class="categories-item ">Zaxira
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="arrow-up"
+                                 style="display: block; width: 18px; height: 18px; rotate: 90deg;">
+                                <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
+                                      fill="#2F8AF5"></path>
+                            </svg>
+                        </div>
+                        <div class="categories-item ">Mening maxsulotlarim</div>
+                    </div>
+                    <div class="product__cards">
+                        {% for product in products %}
+                            <div class="card">
+{#                                <a href="{% url 'product_detail' product.slug %}" alt="">#}
+                                    <div class="card__img">
+                                        {% for image in product.images.all %}
+                                            {% if forloop.first %}
+                                                <img src="{{ image.image.url }}" alt="{{ product.name }}">
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </a>
+                                <ul>
+                                    <li>
+{#                                        <a href="{% url 'product_detail' product.slug %}" alt="">#}
+                                            <h2 class="c-red">{{ product.name }}</h2>
+                                        </a>
+                                        <p class="price mr-10">{{ product.price }} so'm</p>
+                                    </li>
+                                    <li>To'lov: <strong>{{ product.order_count }} so'm</strong></li>
+                                    <li>
+                                        <a href="{{ product.owner.tg_account }}" target="_blank" rel="noreferrer" class="store-link">
+                                            Sotuvchi: <strong>{{ product.owner }}</strong>
+                                        </a>
+                                    </li>
+                                    <li>Zaxirada: <span class="c-green">{{ product.quantity }} ta</span></li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                
+                    <div class="col-sm-auto mb-2 mb-sm-0">
+                        <h6 class="mb-0">Showing {{ page_obj.start_index }}-{{ page_obj.end_index }}
+                            of {{ page_obj.paginator.count }} Products</h6>
+                    </div>
+
+                    <div class="pagination">
+                        <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: 1-5 jami {{ page_obj.paginator.count }}</p></div>
+                        <ul role="navigation" aria-label="Pagination">
+                            <li class="previous disabled"><a class=" " tabindex="-1" role="button"
+                                                             aria-disabled="true" aria-label="Previous page"
+                                                             rel="prev"><span class="pagination__prev"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                            </li>
+                            
+                            <li class="selected"><a rel="canonical" role="button" tabindex="-1"
+                                                    aria-label="Page 1 is your current page"
+                                                    aria-current="page">1</a></li>
+                            <li><a rel="next" role="button" tabindex="0" aria-label="Page 2">2</a></li>
+                            
+                            
+                            <li class="next"><a class="" tabindex="0" role="button" aria-disabled="false"
+                                                aria-label="Next page" rel="next"><span
+                                    class="pagination__next"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                  viewBox="0 0 384 512"><path
+                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mantine-1r8zqw4"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <style>
+        .market .categories-item {
+    -webkit-text-size-adjust: 10%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    font-size: 15px;
+    font-weight: 300;
+    gap: 3px;
+    letter-spacing: .72px;
+    line-height: 1.4375rem;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+    </style>
+{% endblock %}
