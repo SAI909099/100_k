@@ -1,7 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, ForeignKey, CASCADE, Model, DateTimeField, SlugField, ImageField, IntegerField, \
-    PositiveIntegerField
+    PositiveIntegerField, FloatField, SET_NULL
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -100,3 +100,18 @@ class Product(BaseSlugModel, BaseModel):
 class ProductImage(Model):
     image = ResizedImageField(size=[200, 200], quality=100, upload_to='products/')
     product = ForeignKey('apps.Product', CASCADE, related_name='images')
+
+
+
+class Stream(BaseModel):
+    name = CharField(max_length=100)
+    discount = FloatField()
+    count = IntegerField(default=0)
+    product = ForeignKey('apps.Product', SET_NULL, null=True, related_name='streams')
+    owner = ForeignKey(User, on_delete=CASCADE, related_name='streams')
+
+    class Meta:
+        ordering = '-id',
+
+    def __str__(self):
+        return self.name

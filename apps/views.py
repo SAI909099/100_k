@@ -1,7 +1,9 @@
-from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from apps.models import Category, Product
+from apps.forms import StreamForm
+from apps.models import Category, Product, Stream
 
 
 class HomeView(ListView):
@@ -47,7 +49,8 @@ class ProductListView(ListView):
         data['categories'] = Category.objects.all()
         return data
 
-class MarketProductListView(LoginRequiredMixin,ListView):
+
+class MarketProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'apps/product/market-products.html'
     context_object_name = 'products'
@@ -65,3 +68,24 @@ class MarketProductListView(LoginRequiredMixin,ListView):
             return super().get_queryset().filter(owner=self.request.user)
 
 
+class StreamFormView(LoginRequiredMixin, FormView):
+    form_class = StreamForm
+    template_name = 'apps/product/market-products.html'
+
+    def form_valid(self, form):
+        print('valid', form.errors)
+        if form.is_valid():
+            form.save()
+        return redirect('stream-list')
+
+    def form_invalid(self, form):
+        print('invalid', form.errors)
+        return redirect('stream-list')
+
+class StreamListVIew(ListView):
+    queryset = Stream.objects.all()
+    template_name = 'apps/product/oqimlarim.html'
+    context_object_name = 'streams'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)

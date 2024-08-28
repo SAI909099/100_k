@@ -3362,7 +3362,7 @@
                                     </svg>
                                 </div>
                                 <p>Market</p><span> </span></a></li>
-                            <li><a href="{# {% url 'stream' %} #}"
+                            <li><a href=" {% url 'stream-list' %} "
                                    aria-current="{% if request.path == 'admin1/stream/' %}page{% endif %}"
                                    class="{% if request.path == '/stream/' %}active{% endif %}">
                                 <div class="dashboard-icon">
@@ -3371,7 +3371,7 @@
                                     </svg>
                                 </div>
                                 <p>Oqim</p><span> </span></a></li>
-                            <li><a href="{# {% url 'statistics' %} #}"
+                            <li><a href="{# {% url 'statistics' %} "#}
                                    aria-current="{% if request.path == 'admin1/statistics/' %}page{% endif %}"
                                    class="{% if request.path == '/statistics/' %}active{% endif %}">
                                 <div class="dashboard-icon">
