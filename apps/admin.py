@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.contrib.admin import StackedInline
+from django.contrib.admin import StackedInline, ModelAdmin
 from django.utils.html import format_html
 
-from apps.models import Category, ProductImage, Product
+from apps.models import Category, ProductImage, Product, Order, SiteSettings
 
 
 @admin.register(Category)
@@ -34,3 +34,6 @@ class ProductAdmin(admin.ModelAdmin):
         if not change:  # Yangi obyekt yaratish
             obj.owner = request.user
         obj.save()
+
+
+

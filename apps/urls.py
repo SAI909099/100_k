@@ -7,7 +7,8 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from apps.views import HomeView, ProductListView, CustomLoginView, CategoryListView, ProductDetailView, \
-    OrderSuccessView, CreateOrderView  #MarketProductListView
+    OrderSuccessView, CreateOrderView, AdminDashboardView, ProfileView, AdminMarketView, \
+    AdminStatisticsView, AdminStreamView, AdminPaymentView  # MarketProductListView
 
 urlpatterns = [
                   path('', HomeView.as_view(), name='home'),
@@ -23,6 +24,17 @@ urlpatterns = [
                   path('product/detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
                   path('create/order/<int:product_id>', CreateOrderView.as_view(), name='create_order'),
                   path('order/success/<int:order_id>', OrderSuccessView.as_view(), name='order_success'),
+
+                  path('contacts', AdminDashboardView.as_view(), name='contacts'),
+                  path('login/', CustomLoginView.as_view(), name='login'),
+                  path('logout', LogoutView.as_view(), name='logout'),
+                  path('admin1/profile', ProfileView.as_view(), name='profile'),
+                  path('admin1/', AdminDashboardView.as_view(), name='dashboard'),
+                  path('admin1/market', AdminMarketView.as_view(), name='market'),
+                  path('admin1/statistics', AdminStatisticsView.as_view(), name='statistics'),
+                  path('admin1/stream', AdminStreamView.as_view(), name='stream'),
+                  path('admin1/payment', AdminPaymentView.as_view(), name='payment'),
+                  path('admin1/profile', ProfileView.as_view(), name='profile'),
 
                   # path('market/', MarketProductListView.as_view(), name='market_list'),
 

@@ -5,8 +5,8 @@
     <meta name="turbo-visit-control" content="disable">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="https://100k.uz/themes/stock/assets/favicon/favicon.ico" type="image/png">
-    <link rel="stylesheet" href="https://100k.uz/themes/stock/assets/owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://100k.uz/themes/stock/assets/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{% static 'apps/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="https://100k.uz/combine/59f82d61887ef6d210900fece577822f-1635082775">
     <link rel="stylesheet" href="https://100k.uz/combine/e5aee909518633f91997c51dc946c9b8-1688155915">
 
@@ -15,7 +15,7 @@
     <title>Internet do'kon O'zbekiston bo'ylab bepul yetqazib berish</title>
     <meta name="description" content="100k.uz - bu eng innavatsion goyalarni o'z ichiga olgan internet do'kon.">
 
-    <link rel="stylesheet" href="https://100k.uz/plugins/rainlab/debugbar/assets/css/debugbar.css">
+    <link rel="stylesheet" href="{% static 'apps/debugbar.css' %}">
 
     <!-- Meta Pixel Code -->
     <script async="" src=".net/en_US/fbevents.js"></script>
@@ -236,7 +236,7 @@
                 <!-- user -->
                 <div class="header_navbar_profile">
                     <div class="d-flex align-items-center">
-                        <a href="/market" class="d-inline-block p-2">
+                        <a href="{% url 'dashboard' %}" class="d-inline-block p-2">
                             <i class="fa fa-user mr-2" aria-hidden="true"></i>
                             <span>Mening kabinetim</span>
                         </a>

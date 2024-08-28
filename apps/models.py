@@ -4,6 +4,9 @@ from django.db.models import CharField, ForeignKey, CASCADE, Model, DateTimeFiel
     PositiveIntegerField
 from django.utils.text import slugify
 from django_resized import ResizedImageField
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -71,11 +74,11 @@ class BaseSlugModel(Model):
 class Category(BaseSlugModel, BaseModel):
     image = ImageField(upload_to='images/')
 
-    class Meta:
-        verbose_name_plural = 'Categories'
-
-    def __str__(self):
-        return self.name
+    # class Meta:
+    #     verbose_name_plural = 'Categories'
+    #
+    # def __str__(self):
+    #     return self.name
 
 
 # class SiteSettings(Model):
@@ -116,3 +119,21 @@ class Order(BaseModel):
 
 def __str__(self):
     return self.name
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)  # Assuming you have a Product model
+    rating = models.PositiveIntegerField(default=1, choices=[(i, i) for i in range(1, 6)])  # 1-5 star rating
+    comment = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Review by {self.user.username} for {self.product.name}'
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ('user', 'product')  # Ensures a user can only review a product once
+from django.db import models
+
+class SiteSettings(Model):
+    pass

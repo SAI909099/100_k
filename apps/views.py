@@ -168,3 +168,31 @@ class CreateOrderView(View):
 #         else:
 #             return super().get_queryset().filter(owner=self.request.user)
 
+class ContactView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/contacts.html'
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/profile.html'
+
+
+class AdminDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/dashboard.html'
+
+
+class AdminMarketView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/market.html'
+
+
+class AdminStreamView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/stream.html'
+
+
+class AdminStatisticsView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/statistics.html'
+
+
+class AdminPaymentView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/payment.html'
+
+
