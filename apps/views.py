@@ -1,4 +1,6 @@
 from django.contrib.auth import login, authenticate
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
@@ -9,6 +11,9 @@ from apps.models import Category, Product, User, Order
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 import re
+
+from apps.forms import StreamForm
+from apps.models import Category, Product, Stream
 
 
 class HomeView(ListView):
@@ -205,6 +210,8 @@ class ProductSearchView(View):
 
 
 class AllView(ListView):
+
+class MarketProductListView(LoginRequiredMixin, ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'apps/barchasi.html'
@@ -222,3 +229,25 @@ class AllView(ListView):
         context['categories'] = categories
         context['selected_category'] = selected_category
         return context
+
+class StreamFormView(LoginRequiredMixin, FormView):
+    form_class = StreamForm
+    template_name = 'apps/product/market-products.html'
+
+    def form_valid(self, form):
+        print('valid', form.errors)
+        if form.is_valid():
+            form.save()
+        return redirect('stream-list')
+
+    def form_invalid(self, form):
+        print('invalid', form.errors)
+        return redirect('stream-list')
+
+class StreamListVIew(ListView):
+    queryset = Stream.objects.all()
+    template_name = 'apps/product/oqimlarim.html'
+    context_object_name = 'streams'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
