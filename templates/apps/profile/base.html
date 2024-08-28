@@ -10,7 +10,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <title>Reklamachilar kabineti</title>
-    <link href="{% static 'apps/css/main.803ad14f.css' %}" rel="stylesheet">
+    <link href="{% static 'apps/main.803ad14f.css' %}" rel="stylesheet">
     <style id="_goober"> @keyframes go2264125279 {
                              from {
                                  transform: scale(0) rotate(45deg);
@@ -3353,7 +3353,7 @@
                                     </svg>
                                 </div>
                                 <p>Dashboard</p><span> </span></a></li>
-                            <li><a href="{# {% url 'market' %} #}"
+                            <li><a href=" {% url 'market_list' %} "
                                    aria-current="{% if request.path == 'admin1/market/' %}page{% endif %}"
                                    class="{% if request.path == '/market/' %}active{% endif %}">
                                 <div class="dashboard-icon">
@@ -3362,7 +3362,7 @@
                                     </svg>
                                 </div>
                                 <p>Market</p><span> </span></a></li>
-                            <li><a href="{# {% url 'stream' %} #}"
+                            <li><a href="{% url 'stream-list' %}"
                                    aria-current="{% if request.path == 'admin1/stream/' %}page{% endif %}"
                                    class="{% if request.path == '/stream/' %}active{% endif %}">
                                 <div class="dashboard-icon">
@@ -3371,7 +3371,7 @@
                                     </svg>
                                 </div>
                                 <p>Oqim</p><span> </span></a></li>
-                            <li><a href="{# {% url 'statistics' %} #}"
+                            <li><a href="{% url 'statistics' %} "
                                    aria-current="{% if request.path == 'admin1/statistics/' %}page{% endif %}"
                                    class="{% if request.path == '/statistics/' %}active{% endif %}">
                                 <div class="dashboard-icon">
@@ -3380,7 +3380,7 @@
                                     </svg>
                                 </div>
                                 <p>Statistika</p><span> </span></a></li>
-                            <li><a href="{# {% url 'payment' %} #}"
+                            <li><a href=" {% url 'payment' %} "
                                    aria-current="{% if request.path == 'admin1/payment/' %}page{% endif %}"
                                    class="{% if request.path == '/payment/' %}active{% endif %}">
                                 <div class="dashboard-icon">
@@ -3405,7 +3405,7 @@
                                         <li><a class="dropdown__item" href="{% url 'profile' %}">Profil</a></li>
                                     </div>
                                     <li>
-                                        <form action="{% url 'logout' %}" method="post">
+                                        <form action=" {% url 'logout' %}" method="post">
                                             {% csrf_token %}
                                             <button class="dropdown__item" type="submit">Chiqish</button>
                                         </form>
@@ -3497,10 +3497,11 @@
                                         </div>
                                         <ul class="dropdown__menu">
                                             <div>
-                                                <li><a class="dropdown__item" href="{% url 'profile' %}">Profil</a></li>
+                                                <li><a class="dropdown__item"
+                                                       href="{# {% url 'profile' %} #}">Profil</a></li>
                                             </div>
                                             <li>
-                                                <form action="{% url 'logout' %}" method="post">
+                                                <form action="{# {% url 'logout' %} #}" method="post">
                                                     {% csrf_token %}
                                                     <button class="dropdown-item" type="submit">Chiqish</button>
                                                 </form>

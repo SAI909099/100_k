@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rwbyl4$fpv^k^hlo^tp$n9jkb@k3obm2k!x4y6h85+k7vn*j04'
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django_resized',
     'ckeditor',
     'mptt',
+
 ]
 AUTH_USER_MODEL = 'apps.User'
 MIDDLEWARE = [

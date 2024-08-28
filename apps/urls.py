@@ -8,7 +8,8 @@ from django.urls import path
 
 from apps.views import HomeView, ProductListView, CustomLoginView, CategoryListView, ProductDetailView, \
     OrderSuccessView, CreateOrderView, AdminDashboardView, ProfileView, AdminMarketView, \
-    AdminStatisticsView, AdminStreamView, AdminPaymentView, ProductSearchView, AllView  # MarketProductListView
+    AdminStatisticsView, AdminStreamView, AdminPaymentView, ProductSearchView, AllView, \
+    StreamDeleteView  # MarketProductListView
 from apps.views import HomeView, ProductListView, MarketProductListView, StreamFormView, StreamListVIew
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
 
                   path('stream/form', StreamFormView.as_view(), name='stream-form'),
                   path('stream/list', StreamListVIew.as_view(), name='stream-list'),
+                  path('stream-delete/<int:pk>', StreamDeleteView.as_view(), name='stream-delete'),
 
                   path('product/detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
                   path('product/detail/<str:slug>', ProductDetailView.as_view(), name='pro_detail'),

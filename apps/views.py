@@ -210,11 +210,12 @@ class ProductSearchView(View):
 
 
 class AllView(ListView):
+    pass
 
 class MarketProductListView(LoginRequiredMixin, ListView):
     model = Product
     context_object_name = 'products'
-    template_name = 'apps/barchasi.html'
+    template_name = 'apps/product/market-products.html'
 
     def queryset(self):
         category_slug = self.request.GET.get('category')
@@ -251,3 +252,8 @@ class StreamListVIew(ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(owner=self.request.user)
+
+class StreamDeleteView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        Stream.objects.filter(pk=pk).first().delete()
+        return redirect('stream-list')
