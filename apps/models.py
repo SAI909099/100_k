@@ -100,3 +100,19 @@ class Product(BaseSlugModel, BaseModel):
 class ProductImage(Model):
     image = ResizedImageField(size=[200, 200], quality=100, upload_to='products/')
     product = ForeignKey('apps.Product', CASCADE, related_name='images')
+
+class Order(BaseModel):
+    name = CharField(max_length=100)
+    phone_number = CharField(max_length=12)
+    product = ForeignKey('Product', on_delete=CASCADE, related_name='orders')
+    region_name = CharField(max_length=100)
+
+    def clean(self):
+        super().clean()
+        phone_number = self.phone_number
+        if len(phone_number) != 12:
+            raise ValidationError("Telefon raqamini to'g'ri kiriting!")  # noqa
+
+
+def __str__(self):
+    return self.name

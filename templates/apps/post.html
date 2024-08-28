@@ -1,0 +1,27 @@
+
+                            <form method="post" action="{% url 'create_order' product.id %}">
+    {% csrf_token %}
+    <div class="my-3">
+        <div class="form-group">
+            <label class="form-label" style="margin-bottom: 7px">Ismingiz</label>
+            <input class="form-control needclear" name="full_name" placeholder="Ismingiz" type="text"/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" style="margin-bottom: 7px">Telefon raqamingiz</label>
+            <input class="my-phone-mask form-control needclear" name="phone_number" id="customer_phone" placeholder="Telefon raqamingiz" type="text"/>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col">
+                <div class="text-center">
+                    <button data-attach-loading type="submit" style="max-width: 100%" class="sk-btn sk-btn--primary sk-btn--block sk-btn--lg">
+                        Buyurtma berish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

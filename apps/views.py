@@ -5,9 +5,9 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView, TemplateView, DetailView
 from django.db.models import Q
 from django.views import View
-from apps.models import Category, Product, User
+from apps.models import Category, Product, User ,  Order
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product, Order
+from .models import Category, Product
 import re
 
 
@@ -151,20 +151,20 @@ class CreateOrderView(View):
         order.save()
         return redirect('order_success', order_id=order.id)
 
-class MarketProductListView(LoginRequiredMixin,ListView):
-    model = Product
-    template_name = 'apps/product/market-products.html'
-    context_object_name = 'products'
-
-    def get_queryset(self):
-        sort_by = self.request.GET.get('sort', 'newest')
-
-        if sort_by == 'newest':
-            return Product.objects.all().order_by('-created_at')
-        elif sort_by == 'top_selling':
-            return Product.objects.all().order_by('-sold_count')
-        elif sort_by == 'quantity':
-            return Product.objects.all().order_by('-quantity')
-        else:
-            return super().get_queryset().filter(owner=self.request.user)
+# class MarketProductListView(LoginRequiredMixin,ListView):
+#     model = Product
+#     template_name = 'apps/product/market-products.html'
+#     context_object_name = 'products'
+#
+#     def get_queryset(self):
+#         sort_by = self.request.GET.get('sort', 'newest')
+#
+#         if sort_by == 'newest':
+#             return Product.objects.all().order_by('-created_at')
+#         elif sort_by == 'top_selling':
+#             return Product.objects.all().order_by('-sold_count')
+#         elif sort_by == 'quantity':
+#             return Product.objects.all().order_by('-quantity')
+#         else:
+#             return super().get_queryset().filter(owner=self.request.user)
 

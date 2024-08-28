@@ -7,7 +7,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from apps.views import HomeView, ProductListView, CustomLoginView, CategoryListView, ProductDetailView, \
-    OrderSuccessView, CreateOrderView
+    OrderSuccessView, CreateOrderView  #MarketProductListView
 
 urlpatterns = [
                   path('', HomeView.as_view(), name='home'),
@@ -24,7 +24,7 @@ urlpatterns = [
                   path('create/order/<int:product_id>', CreateOrderView.as_view(), name='create_order'),
                   path('order/success/<int:order_id>', OrderSuccessView.as_view(), name='order_success'),
 
-                  path('market/', MarketProductListView.as_view(), name='market_list'),
+                  # path('market/', MarketProductListView.as_view(), name='market_list'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,
                                                                                          document_root=settings.STATIC_ROOT)
