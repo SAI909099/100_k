@@ -8,7 +8,7 @@ from django.urls import path
 
 from apps.views import HomeView, ProductListView, CustomLoginView, CategoryListView, ProductDetailView, \
     OrderSuccessView, CreateOrderView, AdminDashboardView, ProfileView, AdminMarketView, \
-    AdminStatisticsView, AdminStreamView, AdminPaymentView  # MarketProductListView
+    AdminStatisticsView, AdminStreamView, AdminPaymentView, ProductSearchView, AllView  # MarketProductListView
 
 urlpatterns = [
                   path('', HomeView.as_view(), name='home'),
@@ -22,6 +22,7 @@ urlpatterns = [
 
                   path('product/list', ProductListView.as_view(), name='product_list'),
                   path('product/detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
+                  path('product/detail/<str:slug>', ProductDetailView.as_view(), name='pro_detail'),
                   path('create/order/<int:product_id>', CreateOrderView.as_view(), name='create_order'),
                   path('order/success/<int:order_id>', OrderSuccessView.as_view(), name='order_success'),
 
@@ -35,6 +36,8 @@ urlpatterns = [
                   path('admin1/stream', AdminStreamView.as_view(), name='stream'),
                   path('admin1/payment', AdminPaymentView.as_view(), name='payment'),
                   path('admin1/profile', ProfileView.as_view(), name='profile'),
+                  path('search/', ProductSearchView.as_view(), name='product_search'),
+                  path('all_products/', AllView.as_view(), name='all_products'),
 
                   # path('market/', MarketProductListView.as_view(), name='market_list'),
 

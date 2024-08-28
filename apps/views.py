@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView, TemplateView, DetailView
 from django.db.models import Q
 from django.views import View
-from apps.models import Category, Product, User ,  Order
+from apps.models import Category, Product, User, Order
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 import re
@@ -151,6 +151,7 @@ class CreateOrderView(View):
         order.save()
         return redirect('order_success', order_id=order.id)
 
+
 # class MarketProductListView(LoginRequiredMixin,ListView):
 #     model = Product
 #     template_name = 'apps/product/market-products.html'
@@ -196,3 +197,28 @@ class AdminPaymentView(LoginRequiredMixin, TemplateView):
     template_name = 'apps/profile/sections/payment.html'
 
 
+class ProductSearchView(View):
+    def get(self, request):
+        query = request.GET.get('search', '')
+        products = Product.objects.filter(name__icontains=query)
+        return render(request, 'apps/home_page.html', {'products': products})
+
+
+class AllView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'apps/barchasi.html'
+
+    def queryset(self):
+        category_slug = self.request.GET.get('category')
+        if category_slug:
+            return Product.objects.filter(category__slug=category_slug)
+        return Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        selected_category = self.request.GET.get('category')
+        context['categories'] = categories
+        context['selected_category'] = selected_category
+        return context
