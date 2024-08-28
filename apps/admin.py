@@ -20,7 +20,7 @@ class ProductImageInline(StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    exclude = 'slug',
+    exclude = ("slug", "owner",)
     inlines = [ProductImageInline]
 
     @admin.display(empty_value="?")
@@ -29,3 +29,8 @@ class ProductAdmin(admin.ModelAdmin):
         if not obj.quantity:
             icon_url = 'https://img.icons8.com/?size=100&id=63688&format=png&color=000000'
         return format_html("<img src='{}' style='width: 30px' />", icon_url)
+
+    def save_model(self, request, obj, form, change):
+        if not change:  # Yangi obyekt yaratish
+            obj.owner = request.user
+        obj.save()

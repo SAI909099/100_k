@@ -1,8 +1,7 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField, ForeignKey, CASCADE, Model, DateTimeField, SlugField, ImageField, FloatField, \
-    IntegerField, TextField
+from django.db.models import CharField, ForeignKey, CASCADE, Model, DateTimeField, SlugField, ImageField, IntegerField, \
+    PositiveIntegerField
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -43,6 +42,7 @@ class District(Model):
     def __str__(self):
         return self.name
 
+
 class BaseModel(Model):
     created_at = DateTimeField(auto_now_add=True)
     updated_et = DateTimeField(auto_now=True)
@@ -81,14 +81,12 @@ class Category(BaseSlugModel, BaseModel):
 # class SiteSettings(Model):
 #     name = CharField(max_length=255)
 class Product(BaseSlugModel, BaseModel):
-    description = RichTextUploadingField()
-    price = FloatField()
-    payment = FloatField()
-    quantity = IntegerField()
-    for_stream_price = FloatField(default=1000)
-    tg_id = IntegerField(null=True, blank=True)
-    category = ForeignKey('apps.Category', CASCADE, to_field='slug', related_name='products')
-
+    name = CharField(max_length=255)
+    price = IntegerField()
+    quantity = PositiveIntegerField()
+    description = CharField(max_length=255)
+    owner = ForeignKey(User, on_delete=CASCADE, related_name='products')
+    category = ForeignKey('apps.Category', CASCADE, related_name='products')
 
 
     @property
@@ -102,4 +100,3 @@ class Product(BaseSlugModel, BaseModel):
 class ProductImage(Model):
     image = ResizedImageField(size=[200, 200], quality=100, upload_to='products/')
     product = ForeignKey('apps.Product', CASCADE, related_name='images')
-
