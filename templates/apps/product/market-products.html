@@ -1,4 +1,5 @@
-{% extends 'apps/include_base/base.html' %}
+{% extends 'apps/include_base/admin_base.html' %}
+
 {% load static %}
 {% block body %}
     <div class="page-wrapper">
@@ -6,13 +7,12 @@
             <div class="market">
                 <div class="container">
                     <div class="mantine-12semsw"></div>
-                    <div class="block-info">
-                        <span>Maxsulot reklamasini olish uchun <a
-                                href="https://t.me/yuzkabot" target="_blank" rel="noreferrer"
-                                style="text-decoration: underline;">@yuzkabot</a> telegram botga ulaning.</span>
+                    <div class="block-info"><span>Maxsulot reklamasini olish uchun <a href="https://t.me/yuzkabot"
+                                                                                      target="_blank" rel="noreferrer"
+                                                                                      style="text-decoration: underline;">@yuzkabot</a> telegram botga ulaning.</span>
                     </div>
                     <h3>Hozirda sotuvda bor mahsulotlar</h3>
-                    <div class="swiper swiper-initialized swiper-horizontal product-posts swiper-backface-hidden">
+                    <div class="swiper swiper-initialized swiper-horizontal product-posts">
                         <div class="swiper-wrapper"></div>
                         <div class="swiper-button-prev swiper-button-disabled swiper-button-lock"></div>
                         <div class="swiper-button-next swiper-button-disabled swiper-button-lock"></div>
@@ -22,122 +22,268 @@
                         <div class="search-wrap">
                             <button class="mantine-UnstyledButton-root mantine-Button-root icon mantine-1ke2qfb"
                                     type="button" data-button="true">
-                                <div class="mantine-3xbgk5 mantine-Button-inner">
-                                    <span class="mantine-qo1k2 mantine-Button-label">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
-                                        </svg>
-                                    </span>
+                                <div class="mantine-3xbgk5 mantine-Button-inner"><span
+                                        class="mantine-qo1k2 mantine-Button-label"><svg
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+                                        d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path></svg></span>
                                 </div>
                             </button>
-                            <input type="text" class="form-control" autocomplete="off" maxlength="255"
-                                   name="query" value="">
+                            <input type="text" class="form-control " autocomplete="off" maxlength="255" name="query"
+                                   value="">
                             <button class="mantine-UnstyledButton-root mantine-Button-root submit mantine-8nr514"
                                     type="submit" data-button="true">
-                                <div class="mantine-3xbgk5 mantine-Button-inner">
-                                    <span class="mantine-qo1k2 mantine-Button-label">Izlash</span>
-                                </div>
+                                <div class="mantine-3xbgk5 mantine-Button-inner"><span
+                                        class="mantine-qo1k2 mantine-Button-label">Izlash</span></div>
                             </button>
                         </div>
                     </div>
                     <div class="mantine-1q1idfv"></div>
                     <div class="categories">
                         <div class="categories-item active">Yangi 🕒</div>
-                        <div class="categories-item ">TOP ⭐</div>
-                        <div class="categories-item ">Zaxira
+                        <div class="categories-item">TOP ⭐</div>
+                        <div class="categories-item">Zaxira
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" class="arrow-up"
-                                 style="display: block; width: 18px; height: 18px; rotate: 90deg;">
+                                 style="display: block; width: 18px; height: 18px; transform: rotate(90deg);">
                                 <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
                                       fill="#2F8AF5"></path>
                             </svg>
                         </div>
-                        <div class="categories-item ">Mening maxsulotlarim</div>
+                        <div class="categories-item">Mening maxsulotlarim</div>
                     </div>
                     <div class="product__cards">
                         {% for product in products %}
-                            <div class="card">
-{#                                <a href="{% url 'product_detail' product.slug %}" alt="">#}
-                                    <div class="card__img">
-                                        {% for image in product.images.all %}
-                                            {% if forloop.first %}
-                                                <img src="{{ image.image.url }}" alt="{{ product.name }}">
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </a>
+                            <div class="card"><a href="/product/{{ product.name }}"
+                                                 alt="">
+                                <div class="card__img"><img
+                                        src="{{ product.first_image.image.url }}"
+                                        alt=""></div>
+                            </a>
                                 <ul>
+                                    <li><a href="https://100k.uz/shop/product/allohning-99-ismi-marjonli-zanjir" alt="">
+                                        <h2
+                                                class="c-red">{{ product.name }}</h2></a>
+                                        <p class="price mr-10"> {{ product.name }} so'm</p></li>
+                                    <li>To'lov: <strong>30000 so'm</strong></li>
+                                    <li><a href="https://t.me/azimova7004" target="_blank" rel="noreferrer"
+                                           class="store-link">Sotuvchi:<strong>{{ product.owner }}</strong></a></li>
+                                    <li>Zaxirada: <span class="c-green">{{ product.quantity }} ta </span></li>
                                     <li>
-{#                                        <a href="{% url 'product_detail' product.slug %}" alt="">#}
-                                            <h2 class="c-red">{{ product.name }}</h2>
-                                        </a>
-                                        <p class="price mr-10">{{ product.price }} so'm</p>
-                                    </li>
-                                    <li>To'lov: <strong>{{ product.order_count }} so'm</strong></li>
+                                        <div class="" data-tooltipped="" aria-describedby="tippy-tooltip-30"
+                                             data-original-title="Zakazni operator yordamada qabul qilish"
+                                             style="display: inline;">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <g opacity="0.7" clip-path="url(#clip0_213_20219)">
+                                                    <path d="M9.99935 18.3333C5.39685 18.3333 1.66602 14.6025 1.66602 10C1.66602 5.39751 5.39685 1.66667 9.99935 1.66667C14.6018 1.66667 18.3327 5.39751 18.3327 10C18.3327 14.6025 14.6018 18.3333 9.99935 18.3333ZM9.16602 9.16667V14.1667H10.8327V9.16667H9.16602ZM9.16602 5.83334V7.5H10.8327V5.83334H9.16602Z"
+                                                          fill="#293462"></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_213_20219">
+                                                        <rect width="20" height="20" fill="white"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                        Operator: <strong>Bor</strong></li>
                                     <li>
-                                        <a href="{{ product.owner.tg_account }}" target="_blank" rel="noreferrer" class="store-link">
-                                            Sotuvchi: <strong>{{ product.owner }}</strong>
-                                        </a>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14 4.4375C15.3462 4.4375 16.4375 3.34619 16.4375 2H17.5625C17.5625 3.34619 18.6538 4.4375 20 4.4375V5.5625C18.6538 5.5625 17.5625 6.65381 17.5625 8H16.4375C16.4375 6.65381 15.3462 5.5625 14 5.5625V4.4375ZM1 11C4.31371 11 7 8.31371 7 5H9C9 8.31371 11.6863 11 15 11V13C11.6863 13 9 15.6863 9 19H7C7 15.6863 4.31371 13 1 13V11ZM17.25 14C17.25 15.7949 15.7949 17.25 14 17.25V18.75C15.7949 18.75 17.25 20.2051 17.25 22H18.75C18.75 20.2051 20.2051 18.75 22 18.75V17.25C20.2051 17.25 18.75 15.7949 18.75 14H17.25Z"
+                                                  fill="#9747FF"></path>
+                                        </svg>
+                                        Kreativlar: <strong class="c-blue cp">Ko‘rsatish</strong></li>
+                                    <li><p class="c-red c-pointer" style="opacity: 1;">👉 Reklama posti</p></li>
+                                    <li>
+                                        {#                                        <button class="mantine-UnstyledButton-root mantine-Button-root mantine-8nr514"#}
+                                        {#                                                type="button" data-button="true">#}
+                                        {#                                            <div class="mantine-3xbgk5 mantine-Button-inner"><span#}
+                                        {#                                                    class="mantine-qo1k2 mantine-Button-label">Oqim yaratish</span>#}
+                                        {#                                            </div>#}
+                                        {#                                        </button>#}
+                                        <button id="openModalBtn" class="btn-primary">Oqim yaratish</button>
+
+                                        <div id="modal">
+                                            <div id="modal-content">
+                                                <span class="close">&times;</span>
+                                                <h2>{{ product.name }} - 30000 bonus</h2>
+                                                <div class="form-group">
+                                                    <label for="oqimNomi">Oqim nomi</label>
+                                                    <input type="text" id="oqimNomi" name="oqimNomi" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="checkbox" id="yetqazish" name="yetqazish">
+                                                        Yetqazish Bepul
+                                                    </label>
+                                                </div>
+                                                <button class="btn-primary">Oqim yaratish</button>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            // Elementlarni olish
+                                            var modal = document.getElementById("modal");
+                                            var btn = document.getElementById("openModalBtn");
+                                            var span = document.getElementsByClassName("close")[0];
+                                            var createBtn = document.querySelector("#modal-content .btn-primary");
+
+                                            // Tugmani bosganda modal oynani ko'rsatish
+                                            btn.onclick = function () {
+                                                modal.style.display = "block";
+                                            }
+
+                                            // Yopish tugmasini bosganda modal oynani yashirish
+                                            span.onclick = function () {
+                                                modal.style.display = "none";
+                                            }
+
+                                            // Foydalanuvchi modal oynaning tashqarisiga bosganda modal oynani yashirish
+                                            window.onclick = function (event) {
+                                                if (event.target == modal) {
+                                                    modal.style.display = "none";
+                                                }
+                                            }
+
+                                            // "Oqim yaratish" tugmasini bosganda modal oynani yashirish
+                                            createBtn.onclick = function () {
+                                                modal.style.display = "none";
+                                                // Bu yerda boshqa kerakli funksiyalarni ham qo'shishingiz mumkin
+                                            }
+                                        </script>
                                     </li>
-                                    <li>Zaxirada: <span class="c-green">{{ product.quantity }} ta</span></li>
                                 </ul>
                             </div>
                         {% endfor %}
-                    </div>
-                
-                    <div class="col-sm-auto mb-2 mb-sm-0">
-                        <h6 class="mb-0">Showing {{ page_obj.start_index }}-{{ page_obj.end_index }}
-                            of {{ page_obj.paginator.count }} Products</h6>
-                    </div>
 
-                    <div class="pagination">
-                        <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: 1-5 jami {{ page_obj.paginator.count }}</p></div>
-                        <ul role="navigation" aria-label="Pagination">
-                            <li class="previous disabled"><a class=" " tabindex="-1" role="button"
-                                                             aria-disabled="true" aria-label="Previous page"
-                                                             rel="prev"><span class="pagination__prev"><svg
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
-                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
-                            </li>
-                            
-                            <li class="selected"><a rel="canonical" role="button" tabindex="-1"
-                                                    aria-label="Page 1 is your current page"
-                                                    aria-current="page">1</a></li>
-                            <li><a rel="next" role="button" tabindex="0" aria-label="Page 2">2</a></li>
-                            
-                            
-                            <li class="next"><a class="" tabindex="0" role="button" aria-disabled="false"
-                                                aria-label="Next page" rel="next"><span
-                                    class="pagination__next"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                  viewBox="0 0 384 512"><path
-                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
-                            </li>
-                        </ul>
+
                     </div>
-                    
-                    <div class="mantine-1r8zqw4"></div>
+                    {% include 'apps/parts/_paginations.html' %}
                 </div>
             </div>
         </main>
     </div>
     <style>
-        .market .categories-item {
-    -webkit-text-size-adjust: 10%;
-    -moz-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    font-size: 15px;
-    font-weight: 300;
-    gap: 3px;
-    letter-spacing: .72px;
-    line-height: 1.4375rem;
-    padding: 10px;
-    text-align: center;
-    white-space: nowrap;
-}
+
+        /* Modal oyna */
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Modal kontent */
+        #modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Yopish tugmasi */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form stili */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="checkbox"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* General styles for the buttons */
+        .categories {
+            display: flex;
+            gap: 10px; /* Adjust the spacing between buttons */
+        }
+
+        .categories-item {
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            font-size: 14px; /* Adjust font size */
+            font-weight: 400;
+            gap: 5px;
+            letter-spacing: .72px;
+            line-height: 1.2;
+            padding: 8px 15px; /* Adjust padding to control button size */
+            text-align: center;
+            white-space: nowrap;
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Active state for clicked buttons */
+        .categories-item.active {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Specific styles for the icons */
+        .categories-item svg {
+            fill: #2F8AF5; /* Color for the arrow icon */
+            margin-left: 5px; /* Space between the text and the icon */
+        }
     </style>
+    <script>
+        document.querySelectorAll('.market .categories-item').forEach(item => {
+            item.addEventListener('click', function () {
+                // Remove "active" class from all buttons
+                document.querySelectorAll('.market .categories-item').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Add "active" class to the clicked button
+                this.classList.add('active');
+            });
+        });
+    </script>
 {% endblock %}

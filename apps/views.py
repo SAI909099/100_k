@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from apps.models import Category, Product
 
@@ -46,7 +47,7 @@ class ProductListView(ListView):
         data['categories'] = Category.objects.all()
         return data
 
-class MarketProductListView(ListView):
+class MarketProductListView(LoginRequiredMixin,ListView):
     model = Product
     template_name = 'apps/product/market-products.html'
     context_object_name = 'products'
@@ -61,8 +62,6 @@ class MarketProductListView(ListView):
         elif sort_by == 'quantity':
             return Product.objects.all().order_by('-quantity')
         else:
-            return Product.objects.all()
+            return super().get_queryset().filter(owner=self.request.user)
 
 
-class ProductDetailView(DetailView):
-    pass

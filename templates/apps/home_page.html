@@ -1,5 +1,6 @@
 {% extends 'apps/include_base/base.html' %}
 {% load static %}
+
 {% block body %}
     <section class="main">
         <div class="siteCategories pt-5 pb-3">
@@ -37,37 +38,9 @@
                             object-fit: cover;
                         }
                     </style>
-                    {% for product in products %}
-                        <div class="col-md-3 col-sm-4 col-6">
-                            <div class="productsList--item">
-                                <a href="/shop/product/{{ product.slug }}" class="productsList--item--link"></a>
-                                <div class="productsList--item--image">
-                                    <img src="{{ product.images.fisrt.image.url }}" width="200" height="200"
-                                         alt="{{ product.title }}">
-                                </div>
-                                <div class="productsList--item--info">
-                                    <div class="productsList--item--title">
-                                        {{ product.title }}
-                                    </div>
-                                    <div class="productsList--item--price">
-                                        <strong class="font-weight-bold">{{ product.price }}</strong>
-                                        <span class="small">so'm</span>
-                                    </div>
-                                    <div class="productsList--item--orders">
-                                        buyurtmalar: {{ product.orders_count }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                    {% include 'apps/product/product-list.html' %}
                 </div>
-
-                <style>
-                    .productsList--item--image {
-                        height: 200px;
-                        object-fit: cover;
-                    }
-                </style>
+                
             </div>
         </div>
 
@@ -79,7 +52,7 @@
                         <div class="advantagesSection--item">
                             <i class="fa fa-truck" aria-hidden="true"></i>
                             <h3>Tezkor yetkazib berish xizmati</h3>
-                            <p> Buyurtmangiz O'zbekistonning barcha viloyatlariga 3 kun ichida yetqazib beriladi. </p>
+                            <p>Buyurtmangiz O'zbekistonning barcha viloyatlariga 3 kun ichida yetqazib beriladi.</p>
                         </div>
                     </div>
                     <div class="col-md col-sm-6 mb-4">
@@ -93,16 +66,16 @@
                     <div class="col-md col-sm-6 mb-4">
                         <div class="advantagesSection--item">
                             <i class="fa fa-support" aria-hidden="true"></i>
-                            <h3> CALL-CENTER </h3>
-                            <p> Dam olish kunlarisiz qo'llab quvvatlash bo'limi mavjud. <br> <strong>+998 55 500
+                            <h3>CALL-CENTER</h3>
+                            <p>Dam olish kunlarisiz qo'llab-quvvatlash bo'limi mavjud.<br><strong>+998 55 500
                                 55-11</strong></p>
                         </div>
                     </div>
                     <div class="col-md col-sm-6 mb-4">
                         <div class="advantagesSection--item">
                             <i class="fa fa-gift" aria-hidden="true"></i>
-                            <h3> Mijozlarni rag'batlantirish tizimi </h3>
-                            <p> Doimiy mijozlar uchun sovg'alar va bonuslar taqdim etiladi. </p>
+                            <h3>Mijozlarni rag'batlantirish tizimi</h3>
+                            <p>Doimiy mijozlar uchun sovg'alar va bonuslar taqdim etiladi.</p>
                         </div>
                     </div>
                 </div>
